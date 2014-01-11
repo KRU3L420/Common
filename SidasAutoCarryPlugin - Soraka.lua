@@ -37,6 +37,7 @@ if myHero.charName ~= "Soraka" then return end
 
 --Variables
 local SpellRangeQ = 530
+local SpellRangeE = 725
 
 -- PluginOnLoad()
 function PluginOnLoad()
@@ -48,6 +49,9 @@ function PluginOnLoad()
 	AutoCarry.PluginMenu:addParam("harass", "Harass", SCRIPT_PARAM_ONKEYDOWN, false, 65)
         -- Here we add our function to always show our HotKeys.
 	AutoCarry.PluginMenu:permaShow("harass")
+        -- Here we add the options to toggle harassing with Q+E
+        AutoCarry.PluginMenu:addParam("hwQ", "Harass with Q", SCRIPT_PARAM_ONOFF, true) -- Harass with Q
+	AutoCarry.PluginMenu:addParam("hwE", "Harass with E", SCRIPT_PARAM_ONOFF, true) -- Harass with E
 
 	--AutoCarry Range
 	AutoCarry.Crosshair:SetSkillCrosshairRange(1000)
@@ -75,8 +79,10 @@ end
 function Harass()
 	local target = AutoCarry.GetAttackTarget(true)
 	if ValidTarget(target) then
-		if (GetDistance(target) <= SpellRangeQ) then CastSpell(_Q, target) end
+		if AutoCarry.PluginMenu.hwQ and (GetDistance(target) <= SpellRangeQ) then SkillQ:Cast(Target) end
+		if AutoCarry.PluginMenu.hwE and (GetDistance(target) <= SpellRangeE) then SkillE:Cast(Target) end
 	end
+	
 	if not (AutoCarry.MainMenu.LastHit or AutoCarry.MainMenu.MixedMode) then myHero:MoveTo(mousePos.x, mousePos.z) end
 end
 
