@@ -43,7 +43,7 @@ function PluginOnLoad()
 	SkillE = AutoCarry.Skills:NewSkill(false, _E, 725, "Infuse", AutoCarry.SPELL_TARGETED, 0, false, false, 2, 0, 0, false)
 	-- Here we add our Harass option to the menu
 	AutoCarry.PluginMenu:addParam("harass", "Harass", SCRIPT_PARAM_ONKEYDOWN, false, 65)
-    -- Here we add our function to always show our HotKeys.
+    	-- Here we add our function to always show our HotKeys.
 	AutoCarry.PluginMenu:permaShow("harass")
 
 	--AutoCarry Range
