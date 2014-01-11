@@ -14,9 +14,9 @@
 
                 Features:
                     Harass with HotKey (Default A) - Also moves to cursor.
-					Cast Q when enemy in range, with Auto Carry, and Mixed modes.
-					Killsteal ability with Q+E. Casts Q+E when it can KILL the enemy.
-					Used with Soraka Slack to Auto Q+E Team Members.(Will be added next release!) - http://botoflegends.com/forum/topic/1931-soraka-slack/
+		    Cast Q when enemy in range, with Auto Carry, and Mixed modes.
+		    Killsteal ability with Q+E. Casts Q+E when it can KILL the enemy.
+		    Used with Soraka Slack to Auto Q+E Team Members.(Will be added next release!) - http://botoflegends.com/forum/topic/1931-soraka-slack/
 				    
                 
                 Download: 
