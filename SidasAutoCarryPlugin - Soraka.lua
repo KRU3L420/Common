@@ -13,18 +13,21 @@
                         Place the Plugin in BoL/Scripts/Common folder.
 
                 Features:
-					Casts Q+E when enemy in range, with Auto Carry, Mixed Mode, and Lane Clear
+                    Harass with HotKey (Default A) - Also moves to cursor.
+					Cast Q when enemy in range, with Auto Carry, and Mixed modes.
 					Killsteal ability with Q+E. Casts Q+E when it can KILL the enemy.
 					Used with Soraka Slack to Auto Q+E Team Members.(Will be added next release!) - http://botoflegends.com/forum/topic/1931-soraka-slack/
-				
+				    
                 
                 Download: 
 
                 Version History:
-						Version: 1.01
-							Fixed / Removed: Damage Check for Astral Blessing(W)
-							Added: Auto-Cast Q+E when Enemy In Range
+						Version: 1.02
+							Added: Auto-Q Enemy in Auto Carry, and Mixed modes.
+							Added: HotKey to Harass with Q, also moves to cursor.
 							Added: Kill Steal with Q+E
+						Version: 1.01
+							Removed: Damage Check for Astral Blessing(W)
                         Version: 1.00
                             Release         
 --]]
