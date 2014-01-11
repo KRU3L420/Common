@@ -77,7 +77,6 @@ function Harass()
 	if ValidTarget(target) then
 		if (GetDistance(target) <= SpellRangeQ) then CastSpell(_Q, target) end
 	end
-	
 	if not (AutoCarry.MainMenu.LastHit or AutoCarry.MainMenu.MixedMode) then myHero:MoveTo(mousePos.x, mousePos.z) end
 end
 
