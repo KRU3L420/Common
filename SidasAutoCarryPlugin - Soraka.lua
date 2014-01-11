@@ -79,18 +79,9 @@ function Harass()
 end
 
 function KillSteal()
--- This is our super basic KillSteal function, checks if enemies can die from
-	-- our basicskills and if they can then it will cast it
-	-- first we check if our target is valid by using ValidTarget which checks if
-	-- target is valid, visible and targetable (for example tryn's ult, kayle ult etc)
 	if ValidTarget(Target) then
-		-- First we make our variable to get the damage that our skills do to our Target
-			-- for our variable we use spellDmg library which is included by default
-			-- in BoL, the format is: getDmg("_spellkey", target, source)
 		local qDamage = getDmg("Q", Target, myHero)
 		local eDamage = getDmg("E", Target, myHero)
-		-- Now all we need to do is check if the target's health is less than our skill Dmg
-			-- then cast the skill on them same way as we did before
 		if Target.health <= qDamage then SkillQ:Cast(Target) end
 		if Target.health <= eDamage then SkillE:Cast(Target) end
 	end
