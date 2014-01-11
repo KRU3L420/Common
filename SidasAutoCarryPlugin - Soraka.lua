@@ -22,14 +22,14 @@
                 Download: 
 
                 Version History:
-						Version: 1.02
-							Added: Auto-Q Enemy in Auto Carry, and Mixed modes.
-							Added: HotKey to Harass with Q, also moves to cursor.
-							Added: Kill Steal with Q+E
-						Version: 1.01
-							Removed: Damage Check for Astral Blessing(W)
-                        Version: 1.00
-                            Release         
+		    Version: 1.02
+		        Added: Auto-Q Enemy in Auto Carry, and Mixed modes.
+		        Added: HotKey to Harass with Q, also moves to cursor.
+		        Added: Kill Steal with Q+E
+		Version: 1.01
+		        Removed: Damage Check for Astral Blessing(W)
+                Version: 1.00
+                        Release         
 --]]
 
 -- Champion Check
