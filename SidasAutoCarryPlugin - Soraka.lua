@@ -65,8 +65,6 @@ local IGNITESlot, EXHAUSTSlot = nil, nil
 local ts
 local allyTable
 local enemyTable
-local abilitySequence
-local qOff, wOff, eOff, rOff = 0,0,0,0
 local ToInterrupt = {}
 local InterruptList = {
     { charName = "Caitlyn", spellName = "CaitlynAceintheHole"},
@@ -101,7 +99,7 @@ local priorityTable = {
  
 	AD_Carry = {
 		"Ashe", "Caitlyn", "Corki", "Draven", "Ezreal", "Graves", "Jayce", "KogMaw", "Lucian", "MissFortune", "Pantheon", "Quinn", "Shaco", "Sivir",
-		"Talon", "Tristana", "Twitch", "Urgot", "Varus", "Vayne", "Zed", "Lucian", "Jinx", "Yasuo",
+		"Talon", "Tristana", "Twitch", "Urgot", "Varus", "Vayne", "Zed", "Lucian", "Jinx",
 	},
  
 	Bruiser = {
@@ -111,7 +109,7 @@ local priorityTable = {
 }
 
 function PluginOnLoad()
-	AutoCarry.PluginMenu:addParam("combo", "Silence/Exhaust/Attack Target", SCRIPT_PARAM_ONKEYDOWN, false, 32)
+	AutoCarry.PluginMenu:addParam("combo", "Silence/Exhaust/Attack", SCRIPT_PARAM_ONKEYDOWN, false, 32)
 	AutoCarry.PluginMenu:addParam("interrupt", "Interrupt with E", SCRIPT_PARAM_ONOFF, true)
 	AutoCarry.PluginMenu:addParam("printInterrupt", "Print Interrupts", SCRIPT_PARAM_ONOFF, true)
 	AutoCarry.PluginMenu:addParam("autoIGN", "Auto Ignite", SCRIPT_PARAM_ONOFF, true)
@@ -121,6 +119,7 @@ function PluginOnLoad()
 	AutoCarry.PluginMenu:addParam("minEmana", "Min. E ally mana", SCRIPT_PARAM_SLICE, 50, 0, 100, 0)
 	AutoCarry.PluginMenu:addParam("autoR", "Use R", SCRIPT_PARAM_ONOFF, true)
 	AutoCarry.PluginMenu:addParam("minRhealth", "Min. R health limit", SCRIPT_PARAM_SLICE, 15, 0, 100, 0)
+	AutoCarry.PluginMenu:addParam("autoLvl", "Auto Level Skills (Requires Reload)", SCRIPT_PARAM_ONOFF, true)
 	AutoCarry.PluginMenu:permaShow("combo")
 
 	ts = TargetSelector(TARGET_PRIORITY, RangeE, DAMAGE_MAGIC)
@@ -129,6 +128,8 @@ function PluginOnLoad()
 
 	IGNITESlot = ((myHero:GetSpellData(SUMMONER_1).name:find("SummonerDot") and SUMMONER_1) or (myHero:GetSpellData(SUMMONER_2).name:find("SummonerDot") and SUMMONER_2) or nil)
 	EXHAUSTSlot = ((myHero:GetSpellData(SUMMONER_1).name:find("SummonerExhaust") and SUMMONER_1) or (myHero:GetSpellData(SUMMONER_2).name:find("SummonerExhaust") and SUMMONER_2) or nil)
+	
+	levelSequence = { nil, 3, 1, 2, 1, 3, 4, 2, 1, 1, 3, 4, 1, 3, 3, 2, 4, 2, 2, }
 	
 	allyTable = GetAllyHeroes()
 	table.insert(allyTable, myHero)
@@ -142,36 +143,15 @@ function PluginOnLoad()
 			end
 		end
 	end
+
 	if heroManager.iCount < 10 then -- borrowed from Sidas Auto Carry
 		PrintChat(" >> Too few champions to arrange priority")
 	else
 		arrangePrioritys()
 	end
--- Auto Level Skills
-    local champ = player.charName
-    if champ == "Soraka" then       abilitySequence = { 1, 3, 1, 2, 1, 4, 1, 2, 1, 3, 4, 2, 3, 2, 3, 4, 2, 3, }
-    else PrintChat(string.format(" >> AutoLevel disabled for %s", champ))
-    end
-    if abilitySequence and #abilitySequence == 18 then
-        PrintChat(" >> Soraka Auto Leveler Activated")
-    else
-        PrintChat(" >> Error")
-        OnTick = function() end
-        return
-    end
 end
 
 function PluginOnTick()
-    local qL, wL, eL, rL = player:GetSpellData(_Q).level + qOff, player:GetSpellData(_W).level + wOff, player:GetSpellData(_E).level + eOff, player:GetSpellData(_R).level + rOff
-    if qL + wL + eL + rL < player.level then
-        local spellSlot = { SPELL_1, SPELL_2, SPELL_3, SPELL_4, }
-        local level = { 0, 0, 0, 0 }
-        for i = 1, player.level, 1 do
-            level[abilitySequence[i]] = level[abilitySequence[i]] + 1
-        end
-        for i, v in ipairs({ qL, wL, eL, rL }) do
-            if v < level[i] then LevelSpell(spellSlot[i]) end
-        end
 	CDHandler()
 	if AutoCarry.PluginMenu.autoIGN then AutoIgnite() end
 	if AutoCarry.PluginMenu.autoR then CastR() end
@@ -179,7 +159,8 @@ function PluginOnTick()
 	if AutoCarry.PluginMenu.useQ then CastQ() end
 	if AutoCarry.PluginMenu.useE and not AutoCarry.PluginMenu.combo then CastE() end
 	if AutoCarry.PluginMenu.combo then Combo() end
-	end
+	
+	if AutoCarry.PluginMenu.autoLvl then autoLevelSetSequence(levelSequence) end
 end
 
 function CastR()
