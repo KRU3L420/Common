@@ -129,7 +129,7 @@ function PluginOnLoad()
 	IGNITESlot = ((myHero:GetSpellData(SUMMONER_1).name:find("SummonerDot") and SUMMONER_1) or (myHero:GetSpellData(SUMMONER_2).name:find("SummonerDot") and SUMMONER_2) or nil)
 	EXHAUSTSlot = ((myHero:GetSpellData(SUMMONER_1).name:find("SummonerExhaust") and SUMMONER_1) or (myHero:GetSpellData(SUMMONER_2).name:find("SummonerExhaust") and SUMMONER_2) or nil)
 	
-	levelSequence = { nil, 3, 1, 2, 1, 3, 4, 2, 1, 1, 3, 4, 1, 3, 3, 2, 4, 2, 2, }
+	levelSequence = { 3, 1, 2, 1, 3, 4, 2, 1, 1, 3, 4, 1, 3, 3, 2, 4, 2, 2, }
 	
 	allyTable = GetAllyHeroes()
 	table.insert(allyTable, myHero)
